@@ -23,7 +23,6 @@
         "shelljs": "^0.8.3"
     },
     "devDependencies": {
-        "coveralls": "^3.0.4",
         "eslint": "^8.26.0",
         "eslint-config-prettier": "^5.0.0",
         "eslint-plugin-json": "^1.4.0",
@@ -51,6 +50,11 @@
         "node": ">=6.4.0"
     },
     "bundledDependencies": [
+        "lodash",
+        "minimist",
+        "shelljs"
+    ],
+    "bundleDependencies": [
         "lodash",
         "minimist",
         "shelljs"
