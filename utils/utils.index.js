@@ -14,8 +14,8 @@ module.exports.CliError = class CliError extends Error {
     }
 };
 
-module.exports.safetyDecorator = function(wrapped) {
-    return function() {
+module.exports.safetyDecorator = function (wrapped) {
+    return function () {
         try {
             wrapped.apply(this, arguments);
         } catch (e) {

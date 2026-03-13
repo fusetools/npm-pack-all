@@ -41,14 +41,14 @@ describe(TEST_SUITE, () => {
         expect(
             safetyDecorator(() => {
                 throw new Error(MSG_NOT_TO_ERROR_ON);
-            })
+            }),
         ).not.toThrow();
 
         // error otherwise
         expect(
             safetyDecorator(() => {
                 throw new Error();
-            })
+            }),
         ).toThrow();
     });
 });

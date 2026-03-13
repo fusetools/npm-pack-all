@@ -6,9 +6,9 @@ module.exports = {
     coveragePathIgnorePatterns: [`(.*)\.mocks\.(.*)`, `\/coverage`, `jest\.config`, `package\.json`, `\.lock`, `\-lock`, `^[.]`],
     coverageThreshold: {
         global: {
-            statements: 80
-        }
+            statements: 80,
+        },
     },
     modulePathIgnorePatterns: [".npm-cache", ".npm-tmp", ".cache", ".tmp", ".nvm", ".yarn"],
-    reporters: ["default"]
+    reporters: ["default"],
 };

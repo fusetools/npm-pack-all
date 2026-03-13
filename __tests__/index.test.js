@@ -21,7 +21,7 @@ beforeEach(() => {
             mv: mockShellFn(`mv`),
             rm: mockShellFn(`rm`),
             mkdir: mockShellFn(`mkdir`),
-            touch: mockShellFn(`touch`)
+            touch: mockShellFn(`touch`),
         };
     });
 });
@@ -56,10 +56,10 @@ describe(TEST_SUITE, () => {
 
         jest.mock(`fs`, () => {
             return {
-                existsSync: jest.fn(arg => {
+                existsSync: jest.fn((arg) => {
                     return arg.includes(`package-lock.json`);
                 }),
-                writeFileSync: jest.fn()
+                writeFileSync: jest.fn(),
             };
         });
 
@@ -69,11 +69,11 @@ describe(TEST_SUITE, () => {
                 callback();
             }
             return {
-                spawn: jest.fn(function() {
+                spawn: jest.fn(function () {
                     return {
-                        on
+                        on,
                     };
-                })
+                }),
             };
         });
 
@@ -97,7 +97,7 @@ describe(TEST_SUITE, () => {
             `mv("-f","${TMP_DIR}/package-lock.json","${path.join(process.cwd(), "package-lock.json")}")`,
             `mv("-f","${TMP_DIR}/yarn.lock","${path.join(process.cwd(), "yarn.lock")}")`,
             `mv("-f","${TMP_DIR}/.npmignore","${path.join(process.cwd(), ".npmignore")}")`,
-            `rm("-Rf","${TMP_DIR}")`
+            `rm("-Rf","${TMP_DIR}")`,
         ]);
     });
 
@@ -112,7 +112,7 @@ describe(TEST_SUITE, () => {
 
         jest.mock(`fs`, () => {
             return {
-                existsSync: jest.fn(arg => {
+                existsSync: jest.fn((arg) => {
                     return arg.includes(`package-lock.json`);
                 }),
                 writeFileSync: jest.fn((file, data) => {
@@ -126,7 +126,7 @@ describe(TEST_SUITE, () => {
                     } else if (file.includes(".npmrc")) {
                         expect(JSON.parse(data)).toEqual(".npm-pack-all-tmp");
                     }
-                })
+                }),
             };
         });
 
@@ -157,7 +157,7 @@ describe(TEST_SUITE, () => {
                     } else if (file.includes(".npmrc")) {
                         expect(JSON.parse(data)).toEqual(".npm-pack-all-tmp");
                     }
-                })
+                }),
             };
         });
 
@@ -189,7 +189,7 @@ describe(TEST_SUITE, () => {
             `mv("-f","${TMP_DIR}/.npmignore","${path.join(process.cwd(), ".npmignore")}")`,
             `rm("-Rf","${TMP_DIR}")`,
             `mkdir("-p","${path.join(process.cwd(), "deploy")}")`,
-            `mv("-f","${path.join(process.cwd(), `${packageName}`)}","${path.join(process.cwd(), outputLoc)}")`
+            `mv("-f","${path.join(process.cwd(), `${packageName}`)}","${path.join(process.cwd(), outputLoc)}")`,
         ]);
     }
     test("Does output to --output flag location", outputTest);
@@ -216,12 +216,12 @@ describe(TEST_SUITE, () => {
 function sortModuleMockFnsByCallOrder(mocks) {
     const mockFnsInOrder = [];
 
-    const mockFns = pickBy(mocks, mock => {
+    const mockFns = pickBy(mocks, (mock) => {
         return mock._isMockFunction;
     });
 
     // iterate each mocked fn in module
-    keys(mockFns).forEach(fnName => {
+    keys(mockFns).forEach((fnName) => {
         // combine calls, instances, results, etc
         for (let i = 0; i < mockFns[fnName].mock.calls.length; i++) {
             mockFnsInOrder.push({
@@ -229,13 +229,13 @@ function sortModuleMockFnsByCallOrder(mocks) {
                 calls: mockFns[fnName].mock.calls[i],
                 instances: mockFns[fnName].mock.instances[i],
                 invocationCallOrder: mockFns[fnName].mock.invocationCallOrder[i],
-                results: mockFns[fnName].mock.results[i]
+                results: mockFns[fnName].mock.results[i],
             });
         }
     });
 
     const orderedFns = sortBy(mockFnsInOrder, ["invocationCallOrder"]);
-    const orderedArgs = map(orderedFns, fn => {
+    const orderedArgs = map(orderedFns, (fn) => {
         return `${fn.fnName}(${JSON.stringify(fn.calls).replace(/[\[\]']+/g, "")})`;
     });
 

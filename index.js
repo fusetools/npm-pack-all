@@ -41,7 +41,7 @@ setBundledDependencies(packageJson);
 console.info(`\nPacking source code${!cliArgs[`dev-deps`] ? `` : `, development`} and production dependencies...`);
 const packProcess = spawn("npm pack", {
     shell: true,
-    stdio: [null, "inherit", "inherit"]
+    stdio: [null, "inherit", "inherit"],
 });
 
 packProcess.on("close", () => {
@@ -89,14 +89,14 @@ function setArtifactName(args) {
 }
 
 function copyFiles(from, to, files) {
-    files.forEach(file => {
+    files.forEach((file) => {
         cp(`-Rf`, path.join(from, file), path.join(to, file));
     });
     fs.writeFileSync(".npmignore", ".npm-pack-all-tmp");
 }
 
 function moveFiles(from, to, files) {
-    files.forEach(file => {
+    files.forEach((file) => {
         mv(`-f`, path.join(from, file), path.join(to, file));
     });
 }
