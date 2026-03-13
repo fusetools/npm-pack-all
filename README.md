@@ -1,82 +1,85 @@
 # npm-pack-all
-[![Version](https://img.shields.io/github/package-json/v/kleingtm/npm-pack-all.svg)](https://www.npmjs.com/package/npm-pack-all)
-[![Build Status](https://travis-ci.org/kleingtm/npm-pack-all.svg?branch=master)](https://travis-ci.org/kleingtm/npm-pack-all)
+
+[![Version](https://img.shields.io/github/package-json/v/fusetools/npm-pack-all.svg)](https://github.com/fusetools/npm-pack-all/releases)
+[![CI](https://github.com/fusetools/npm-pack-all/actions/workflows/node.js.yml/badge.svg)](https://github.com/fusetools/npm-pack-all/actions/workflows/node.js.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-A simple utility to package all node_modules dependencies when running `npm pack` (not devDependencies)
+`npm-pack-all` packages your project together with its installed dependencies when you run `npm pack`.
 
-This can be useful when wanting to ship dependencies as part of the artifact.
-While one can install dependencies on a deployed target using package-lock.json and yarn.lock,
-there can be downsides to that approach, as well.
+This fork is distributed through GitHub Releases instead of npm.
 
-npm-pack-all utility does the following:  
+## Requirements
 
-1. Backs up the following files
-
-    + package.json
-    + package-lock.json
-    + yarn.lock
-    + .npmignore
-    
-2. Adds all dependencies as `bundledDependencies` in the active package.json
-
-    + Pass the `--dev-deps` flag to add devDependencies along with production dependencies
-
-3. Generates an empty .npmignore file in the project root
-
-    + If no .npmignore exists, `npm pack` will use .gitignore to exclude modules
-    
-        (node_modules by default in many cases) 
-
-4. Calls `npm -dd pack`
-
-    + The following will be packed into a .tgz archive:
-    
-        + Any files (via glob) called out in the package.json `files` field
-        + All production dependencies (and their dependencies)
-        + If `--dev-deps`, all devDependencies (and their dependencies)
-    
-5. Restores the files that were backed up
-
-
+- Node `20.19+`, `22.13+`, or `24+`
+- npm
 
 ## Install
-```bash
-npm install npm-pack-all
-```
-OR
+
+Install this fork directly from GitHub:
 
 ```bash
-yarn add npm-pack-all
+npm install github:fusetools/npm-pack-all#v2.0.0
 ```
 
-## Use
+You can also pin to a branch or commit if needed:
+
 ```bash
-node node_modules/.bin/npm-pack-all <optional options>
+npm install github:fusetools/npm-pack-all#main
+npm install github:fusetools/npm-pack-all#<commit-sha>
 ```
 
-### Basic
+## Run
+
+If installed locally in your project:
+
+```bash
+npx npm-pack-all
+```
+
+Or with the direct binary path:
+
 ```bash
 node node_modules/.bin/npm-pack-all
 ```
 
-### Options
-#### --output
-Output your .tgz artifact to a different directory (or with a different name)
-```bash
-node node_modules/.bin/npm-pack-all --output build/
-```
+## Common Usage
 
-OR
+Create a package with production dependencies:
 
 ```bash
-node node_modules/.bin/npm-pack-all --output build/artifact.tgz
+npx npm-pack-all
 ```
 
-#### --dev-deps
-Bundle all production dependencies AND devDependencies in the artifact
-(use with care -- your artifact will balloon)
+Write the archive to a specific directory:
+
 ```bash
-node node_modules/.bin/npm-pack-all --dev-deps --output build/artifact.tgz
+npx npm-pack-all --output build/
 ```
+
+Write the archive to a specific file name:
+
+```bash
+npx npm-pack-all --output build/artifact.tgz
+```
+
+Include devDependencies too:
+
+```bash
+npx npm-pack-all --dev-deps --output build/artifact.tgz
+```
+
+## What It Does
+
+When you run `npm-pack-all`, it:
+
+1. Backs up `package.json`, `package-lock.json`, `yarn.lock`, and `.npmignore`
+2. Adds dependencies to `bundledDependencies`
+3. Optionally adds `devDependencies` when `--dev-deps` is used
+4. Creates a temporary `.npmignore` so installed modules are included in the archive
+5. Runs `npm pack`
+6. Restores your original project files
+
+## Release Notes
+
+- `v2.0.0` is the first GitHub Releases-only version of this fork
+- `v2.0.0` requires modern Node versions because of updated tooling
