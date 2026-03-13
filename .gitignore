@@ -75,3 +75,4 @@ typings/
 .npm-pack-all-tmp
 package
 bin
+.husky/_
