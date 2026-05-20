@@ -18,21 +18,21 @@
     "main": "index.js",
     "bin": "index.js",
     "dependencies": {
-        "lodash": "^4.17.23",
+        "lodash": "^4.18.1",
         "minimist": "^1.2.8",
         "shelljs": "^0.10.0"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3.3.5",
         "@eslint/js": "^10.0.1",
-        "eslint": "^10.0.3",
+        "eslint": "^10.4.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-json": "^4.0.1",
         "eslint-plugin-prettier": "^5.5.5",
-        "globals": "^17.4.0",
+        "globals": "^17.6.0",
         "husky": "^9.1.7",
-        "jest": "^30.3.0",
-        "prettier": "^3.8.1"
+        "jest": "^30.4.2",
+        "prettier": "^3.8.3"
     },
     "scripts": {
         "compile": "npx nexe index.js --output bin/npm-pack-all",
